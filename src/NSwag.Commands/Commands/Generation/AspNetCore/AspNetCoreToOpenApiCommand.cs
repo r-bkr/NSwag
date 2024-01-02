@@ -180,7 +180,9 @@ namespace NSwag.Commands.Generation.AspNetCore
                 }
 
                 if (projectMetadata.TargetFrameworkIdentifier == ".NETCoreApp" ||
-                    projectMetadata.TargetFrameworkIdentifier == "net5.0")
+                    projectMetadata.TargetFrameworkIdentifier == "net6.0" ||
+                    projectMetadata.TargetFrameworkIdentifier == "net7.0" ||
+                    projectMetadata.TargetFrameworkIdentifier == "net8.0")
                 {
                     executable = "dotnet";
                     args.Add("exec");
