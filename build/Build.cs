@@ -334,7 +334,7 @@ partial class Build : NukeBuild
 
         Serilog.Log.Information("Publish command line projects");
 
-        void PublishConsoleProject(Nuke.Common.ProjectModel.Project project, string[] targetFrameworks)
+        void PublishConsoleProject(Project project, string[] targetFrameworks)
         {
             foreach (var targetFramework in targetFrameworks)
             {
@@ -351,9 +351,9 @@ partial class Build : NukeBuild
             }
         }
 
-        PublishConsoleProject(consoleX86Project, new[] { "net461" });
-        PublishConsoleProject(consoleProject, new[] { "net461" });
-        PublishConsoleProject(consoleCoreProject, new[] { "net6.0", "net7.0", "net8.0" });
+        PublishConsoleProject(consoleX86Project, ["net461"]);
+        PublishConsoleProject(consoleProject, ["net461"]);
+        PublishConsoleProject(consoleCoreProject, ["netcoreapp2.1", "netcoreapp3.1", "net5.0", "net6.0", "net7.0", "net8.0"]);
 
         void CopyConsoleBinaries(AbsolutePath target)
         {
@@ -365,6 +365,9 @@ partial class Build : NukeBuild
             CopyDirectoryRecursively(consoleProject.Directory / "bin" / Configuration / "net461" / "publish", target / "Win", DirectoryExistsPolicy.Merge);
 
             var consoleCoreDirectory = consoleCoreProject.Directory / "bin" / Configuration;
+            CopyDirectoryRecursively(consoleCoreDirectory / "netcoreapp2.1" / "publish", target / "NetCore21");
+            CopyDirectoryRecursively(consoleCoreDirectory / "netcoreapp3.1" / "publish", target / "NetCore31");
+            CopyDirectoryRecursively(consoleCoreDirectory / "net5.0" / "publish", target / "Net50");
             CopyDirectoryRecursively(consoleCoreDirectory / "net6.0" / "publish", target / "Net60");
             CopyDirectoryRecursively(consoleCoreDirectory / "net7.0" / "publish", target / "Net70");
             CopyDirectoryRecursively(consoleCoreDirectory / "net8.0" / "publish", target / "Net80");
