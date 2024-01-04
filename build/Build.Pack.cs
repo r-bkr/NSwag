@@ -54,6 +54,7 @@ public partial class Build
 
             foreach (var project in projects)
             {
+                Serilog.Log.Information("Packing project {Project} in {Path}", project.Properties.Select(_ => _.Name), project.FullPath);
                 DotNetPack(s => s
                     .SetProcessWorkingDirectory(SourceDirectory)
                     .SetProject(project.FullPath)

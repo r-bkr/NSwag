@@ -179,6 +179,8 @@ partial class Build : NukeBuild
                     .SetProperty("ContinuousIntegrationBuild", IsServerBuild)
             );
 
+            Serilog.Log.Information("Build completed. Now copying all files");
+
             // later steps need to have binaries in correct places
             PublishAndCopyConsoleProjects();
         });
@@ -192,13 +194,6 @@ partial class Build : NukeBuild
             VSTest(x => x
                 .SetTestAssemblies(webApiTest.Directory / "bin" / Configuration / "NSwag.Generation.WebApi.Tests.dll")
             );
-
-            /*
-            VSTest(x => x
-                .SetLogger(logger)
-                .SetTestAssemblies(SourceDirectory / "NSwag.Tests" / "bin" / Configuration / "NSwag.Tests.dll")
-            );
-            */
 
             // project name + target framework pairs
             var dotNetTestTargets = new (string ProjectName, string Framework)[]
@@ -216,6 +211,7 @@ partial class Build : NukeBuild
             {
                 DotNetTest(x => x
                     .SetProjectFile(Solution.GetProject(project))
+                    .EnableNoRestore()
                     .SetFramework(targetFramework)
                     .SetConfiguration(Configuration)
                 );
@@ -239,7 +235,9 @@ partial class Build : NukeBuild
                 ("NSwag.Sample.NET60", "Net60"),
                 ("NSwag.Sample.NET60Minimal", "Net60"),
                 ("NSwag.Sample.NET70", "Net70"),
-                ("NSwag.Sample.NET70Minimal", "Net70")
+                ("NSwag.Sample.NET70Minimal", "Net70"),
+                ("NSwag.Sample.NET80", "Net80"),
+                ("NSwag.Sample.NET80Minimal", "Net80")
             };
 
             foreach (var (projectName, runtime) in dotnetTargets)
@@ -355,7 +353,7 @@ partial class Build : NukeBuild
 
         PublishConsoleProject(consoleX86Project, new[] { "net461" });
         PublishConsoleProject(consoleProject, new[] { "net461" });
-        PublishConsoleProject(consoleCoreProject, new[] { "netcoreapp2.1", "netcoreapp3.1", "net5.0", "net6.0", "net7.0", "net8.0" });
+        PublishConsoleProject(consoleCoreProject, new[] { "net6.0", "net7.0", "net8.0" });
 
         void CopyConsoleBinaries(AbsolutePath target)
         {
@@ -367,9 +365,6 @@ partial class Build : NukeBuild
             CopyDirectoryRecursively(consoleProject.Directory / "bin" / Configuration / "net461" / "publish", target / "Win", DirectoryExistsPolicy.Merge);
 
             var consoleCoreDirectory = consoleCoreProject.Directory / "bin" / Configuration;
-            CopyDirectoryRecursively(consoleCoreDirectory / "netcoreapp2.1" / "publish", target / "NetCore21");
-            CopyDirectoryRecursively(consoleCoreDirectory / "netcoreapp3.1" / "publish", target / "NetCore31");
-            CopyDirectoryRecursively(consoleCoreDirectory / "net5.0" / "publish", target / "Net50");
             CopyDirectoryRecursively(consoleCoreDirectory / "net6.0" / "publish", target / "Net60");
             CopyDirectoryRecursively(consoleCoreDirectory / "net7.0" / "publish", target / "Net70");
             CopyDirectoryRecursively(consoleCoreDirectory / "net8.0" / "publish", target / "Net80");
