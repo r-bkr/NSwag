@@ -39,8 +39,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NSwag.MSBuild", "NSwag.MSBuild", "{0CBA6B21-C510-441F-A37F-6B74D504B966}"
 	ProjectSection(SolutionItems) = preProject
 		NSwag.MSBuild\build.bat = NSwag.MSBuild\build.bat
-		NSwag.MSBuild\NSwag.MSBuild.nuspec = NSwag.MSBuild\NSwag.MSBuild.nuspec
-		NSwag.MSBuild\NSwag.MSBuild.props = NSwag.MSBuild\NSwag.MSBuild.props
+		NSwag.MSBuild\NSwag.MSBuild.Internal.props = NSwag.MSBuild\NSwag.MSBuild.Internal.props
+		NSwag.MSBuild\NSwag.MSBuild.Internal.nuspec = NSwag.MSBuild\NSwag.MSBuild.Internal.nuspec
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSwag.AspNet.Owin", "NSwag.AspNet.Owin\NSwag.AspNet.Owin.csproj", "{69A692EB-C277-46AB-BA55-B33E7E6E129C}"
@@ -182,9 +182,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		..\.github\workflows\pr.yml = ..\.github\workflows\pr.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSwag.Sample.NET80", "NSwag.Sample.NET80\NSwag.Sample.NET80.csproj", "{8C9453F8-F0AE-4E36-925A-C8EAAE7DAD95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSwag.Sample.NET80", "NSwag.Sample.NET80\NSwag.Sample.NET80.csproj", "{8C9453F8-F0AE-4E36-925A-C8EAAE7DAD95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSwag.Sample.NET80Minimal", "NSwag.Sample.NET80Minimal\NSwag.Sample.NET80Minimal.csproj", "{998B604D-15E3-4CA0-BC06-5CF45C97AC68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSwag.Sample.NET80Minimal", "NSwag.Sample.NET80Minimal\NSwag.Sample.NET80Minimal.csproj", "{998B604D-15E3-4CA0-BC06-5CF45C97AC68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
